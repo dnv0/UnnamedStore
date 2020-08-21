@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HelloCoreMvcApp.Models.Phone>
+@{
+    ViewData["Title"] = "Buy whatever you want and get nothing";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-sm-4">
+            <img class="img-fluid" src="https://source.unsplash.com/800x800/?smartphone" />
+        </div>
+        <div class="col-sm-8" style="display:flex; flex-direction: column;">
+            <h1 class="display-custom">PRODUCT OF THE DAY</h1>
+            <h4 class="font-weight-bold">@Model.ElementAt(1).Company @Model.ElementAt(1).Name &nbsp;&nbsp;&nbsp;&nbsp; $@Model.ElementAt(1).Price</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
+            <div style="margin-top: auto;">
+                <button class="btn btn-primary">BUY</button> <button class="btn btn-secondary">ADD TO SHOPPING CART</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="border-bottom category-name"><a href="">// SMARTPHONES</a></div>
+<div class="container category">
+    <div class="row card-deck">
+        @foreach (var phone in Model)
+        {
+            <div class="col-3">
+                <div class="card" style="cursor:pointer">
+                    <a href="https://www.hellothere.com/phones/@phone.Id" style=" display:block;">
+                        <div class="card-body">
+                            <a class="card-title">@phone.Company</a> <a class="card-title float-right">$@phone.Price</a> <br />
+                            <a class="card-title">@phone.Name</a>
+                        </div>
+                        <img class="card-img-bottom" src="https://source.unsplash.com/800x800/?smartphone @phone.Id">
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
