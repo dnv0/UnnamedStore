@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HelloCoreMvcApp.Models;
+using HelloCoreMvcApp.Models.Products;
 
 namespace HelloCoreMvcApp.Controllers
 {
     public class HomeController : Controller
     {
-        private MobileContext db;
+        private readonly MobileContext db;
 
 
         public HomeController(MobileContext context)
@@ -38,5 +39,9 @@ namespace HelloCoreMvcApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult Catalog()
+        {
+            return View();
+        }
     }
 }

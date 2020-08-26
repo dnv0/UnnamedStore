@@ -1,0 +1,57 @@
+﻿@model List<IItem>
+@{
+
+}
+<div class="border-bottom category-name"><a href="">// CATALOG // @(ViewData["Title"] + "s")</a></div>
+
+<h3>@(ViewData["Title"] + "s") - @ViewData["Count"] products</h3>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+
+            <form>
+                <label>Price:</label>
+                <div class="form-row">
+
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="$ min">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="$ max">
+                    </div>
+                </div>
+                <br />
+
+                <label>Companies:</label>
+
+                <div class="form-check">
+
+                    @foreach (var comp in Model.Select(x => x.Company).Distinct())
+                    {
+                        <input class="form-check-input" type="checkbox" value="@comp" id="@(comp + "Check")">
+                        <label class="form-check-label" for="@(comp + "Check")">
+                            @comp
+                        </label>
+                        <br />
+                    }
+                </div>
+                <br />
+
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+
+        </div>
+        <div class="col-9">
+
+            <table class="table">
+                @foreach (var p in Model)
+                {
+                    <tr><td>@p.Company</td><td>@p.Name</td><td>@p.Price</td></tr>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>

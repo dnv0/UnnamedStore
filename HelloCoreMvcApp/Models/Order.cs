@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HelloCoreMvcApp.Models.Products;
 
-namespace HelloCoreMvcApp.Models
+namespace HelloCoreMvcApp.View
 {
     public class Order
     {

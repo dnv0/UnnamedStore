@@ -12,8 +12,12 @@ a.navbar-brand {
 }
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+u {
+    text-decoration: none;
+}
+
+header{
+    margin-bottom: 25px;
 }
 
 /*Bootstrap override*/
@@ -67,7 +71,8 @@ a {
 
 .card-title {
     font-weight: 600;
-
+    color: #212529;
+    margin-bottom: 0px;
 }
 
 .card {
