@@ -13,7 +13,7 @@
         </div>
         <div class="col-sm-8" style="display:flex; flex-direction: column;">
             <h1 class="display-custom">PRODUCT OF THE DAY</h1>
-            <h4 class="font-weight-bold"> @product.Company @product.Name &nbsp;&nbsp;&nbsp;&nbsp; $@product.Price</h4>
+            <h4 class="font-weight-bold"> @product.Company.Name @product.Name &nbsp;&nbsp;&nbsp;&nbsp; $@product.Price</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
             <div style="margin-top: auto;">
                 <button class="btn btn-primary">BUY</button> <button class="btn btn-secondary">ADD TO SHOPPING CART</button>
@@ -34,10 +34,10 @@
                 <a href="@("/catalog/phones/" + phone.Id)">
                     <div class="card">
                         <div class="card-body">
-                            <u class="card-title">@phone.Company</u> <u class="card-title float-right">$@phone.Price</u> <br />
+                            <u class="card-title">@phone.Company.Name</u> <u class="card-title float-right">$@phone.Price</u> <br />
                             <u class="card-title">@phone.Name</u>
                         </div>
-                        <img class="card-img-bottom" src="@( "https://source.unsplash.com/800x800/?" + phone.Company + "-phone-" + phone.Id )">
+                        <img class="card-img-bottom" src="@( "https://source.unsplash.com/800x800/?" + phone.Company.Name + "-phone-" + phone.Id )">
                     </div>
                 </a>
             </div>

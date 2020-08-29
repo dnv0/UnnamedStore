@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HelloCoreMvcApp.Models;
 using HelloCoreMvcApp.Models.Products;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloCoreMvcApp.Controllers
 {
@@ -23,7 +24,7 @@ namespace HelloCoreMvcApp.Controllers
         public IActionResult Index()
         {
             Random rnd = new Random();
-            List<Phone> phones = db.Phones.ToList<Phone>();
+            List<Phone> phones = db.Phones.Include(x => x.Company).ToList();
             ViewData["ProductDay"] = phones[rnd.Next(0, phones.Count - 1)];
             return View(db.Phones.ToList());
         }

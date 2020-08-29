@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace HelloCoreMvcApp.Models.Products
 {
-    public class Phone : IItem
+    public class Phone : Item
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Company { get; set; }
-        public double Price { get; set; }
-        public string ShortDescription { get; set; }
+        //public int Id { get; set; }
+        //public string Name { get; set; }
+        //public Company Company { get; set; }
+        //public double Price { get; set; }
+        //public string ShortDescription { get; set; }
     }
 }

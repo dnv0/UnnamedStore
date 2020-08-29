@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HelloCoreMvcApp.ViewModels
+namespace HelloCoreMvcApp.Models
 {
-    public class ItemViewModel
+    public abstract class Item
     {
         public int Id { get; set; }
-        public string Company { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public string ShortDescription { get; set; }
+
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
     }
 }
