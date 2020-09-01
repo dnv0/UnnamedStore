@@ -30,6 +30,8 @@ namespace HelloCoreMvcApp.Controllers
 
         public IActionResult Index()
         {
+            // Returns Catalog View
+            //
             return View("Catalog");
         }
 
@@ -42,13 +44,20 @@ namespace HelloCoreMvcApp.Controllers
             {
                 ViewData["Title"] = name;
 
+                // Getting list items from db by category name
+                // Sorting and taking first 10 items
+                //
                 var currentList = db.Set(GetEntityType(name)).Include(x => (x as Item).Company).ToList().ConvertAll(x => (Item)x);
                 currentList = currentList.OrderBy(p => p.Price).ToList();
                 var items = currentList.Take(10).ToList();
                 ViewData["ItemsCount"] = currentList.Count;
 
+                // Storing a category name in cookie
+                //
                 Response.Cookies.Append("catalogName", name);
 
+                // Initializing a ViewModel
+                //
                 ViewItemsViewModel viewModel = new ViewItemsViewModel
                 {
                     PageViewModel = new PageViewModel(currentList.Count, 1, 10),
@@ -57,6 +66,8 @@ namespace HelloCoreMvcApp.Controllers
                     Items = items
                 };
 
+                // Passing a list of companies
+                //
                 ViewData["Companies"] = currentList.Select(c => c.Company).Distinct().ToList();
 
                 return View(viewModel);
@@ -82,6 +93,8 @@ namespace HelloCoreMvcApp.Controllers
             }
             else return StatusCode(500);
 
+            // Passing a list of companies
+            //
             ViewData["Companies"] = currentList.Select(c => c.Company).Distinct().ToList();
 
             // Handling the cancel button to return original catalog
@@ -102,6 +115,8 @@ namespace HelloCoreMvcApp.Controllers
             //
             if (!String.IsNullOrEmpty(nameFilter))
             {
+                // Filtering by name
+                //
                 currentList = currentList.Where(n => n.Name.Contains(nameFilter)).ToList();
 
                 // Sorting
@@ -116,6 +131,8 @@ namespace HelloCoreMvcApp.Controllers
                         break;
                 }
 
+                // Taking first 10 items and passing
+                //
                 var modelItems = currentList.Take(10).ToList();
                 return View(viewModel = new ViewItemsViewModel
                 {
@@ -126,14 +143,17 @@ namespace HelloCoreMvcApp.Controllers
                 });
             }
 
-            //
+            // Filter by cmopanies, prices, and sorting
             //
             result = GetFilterSortList(currentList ,companiesId, sortOrder, minPrice, maxPrice);
 
-
+            // Pagination
+            //
             int count = result.Count;
             var items = result.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
+            // Initiizing a ViewModel
+            //
             viewModel = new ViewItemsViewModel
             {
                 PageViewModel = new PageViewModel(count, page, pageSize),
@@ -142,10 +162,13 @@ namespace HelloCoreMvcApp.Controllers
                 Items = items
             };
 
-
             return View(viewModel);
         }
 
+        /// <summary>
+        /// Method for searching an entity by name string
+        /// </summary>
+        /// <returns>Enitity Type</returns>
         private Type GetEntityType(string name)
         {
             var entityTypes = db.Model.GetEntityTypes().Select(t => t.ClrType).ToList();
@@ -158,6 +181,10 @@ namespace HelloCoreMvcApp.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Method for sorting and filtering
+        /// </summary>
+        /// <returns>Finihed list</returns>
         private List<Item> GetFilterSortList(List<Item> currentList,int[] companiesId, SortState sortOrder, int minPrice, int maxPrice)
         {
             List<Item> result = new List<Item>();

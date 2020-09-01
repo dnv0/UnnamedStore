@@ -23,10 +23,14 @@ namespace HelloCoreMvcApp.Controllers
 
         public IActionResult Index()
         {
+            // Returning a random item for jumbotrone
+            //
             Random rnd = new Random();
             List<Phone> phones = db.Phones.Include(x => x.Company).ToList();
             ViewData["ProductDay"] = phones[rnd.Next(0, phones.Count - 1)];
 
+            // Passing an items for main page
+            //
             ViewData["Ships"] = db.Ships.Include(x => x.Company).ToList();
             ViewData["Papers"] = db.ToiletPapers.Include(x => x.Company).ToList();
 
