@@ -9,7 +9,7 @@ namespace HelloCoreMvcApp.ViewModels
 {
     public class FilterViewModel
     {
-        public FilterViewModel( int[] companies, string name, int? minPrice = 0, int? maxPrice = 999999)
+        public FilterViewModel( int[] companies, string name, int? minPrice = 0, int? maxPrice = Int32.MaxValue)
         {
             SelectedCompanies = companies;
             SelectedName = name;

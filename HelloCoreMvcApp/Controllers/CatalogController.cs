@@ -57,7 +57,7 @@ namespace HelloCoreMvcApp.Controllers
                     Items = items
                 };
 
-                ViewData["Companies"] = db.Companies.ToList();
+                ViewData["Companies"] = currentList.Select(c => c.Company).Distinct().ToList();
 
                 return View(viewModel);
             }
@@ -65,14 +65,12 @@ namespace HelloCoreMvcApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult ViewItems(int[] companiesId, string nameFilter, string cancel, int page, SortState sortOrder = SortState.PriceAsc, int minPrice = 0, int maxPrice = 999999)
+        public IActionResult ViewItems(int[] companiesId, string nameFilter, string cancel, int page, SortState sortOrder = SortState.PriceAsc, int minPrice = 0, int maxPrice = Int32.MaxValue)
         {
             int pageSize = 10;
             List<Item> result = new List<Item>();
             List<Item> currentList = new List<Item>();
             ViewItemsViewModel viewModel;
-
-            ViewData["Companies"] = db.Companies.ToList();
 
             // Setting a list of current catalog
             //
@@ -84,6 +82,8 @@ namespace HelloCoreMvcApp.Controllers
             }
             else return StatusCode(500);
 
+            ViewData["Companies"] = currentList.Select(c => c.Company).Distinct().ToList();
+
             // Handling the cancel button to return original catalog
             //
             if (!string.IsNullOrEmpty(cancel))
@@ -93,7 +93,7 @@ namespace HelloCoreMvcApp.Controllers
                 {
                     PageViewModel = new PageViewModel(currentList.Count, 1, pageSize),
                     SortViewModel = new SortViewModel(SortState.PriceAsc),
-                    FilterViewModel = new FilterViewModel(null, null, 0, 999999),
+                    FilterViewModel = new FilterViewModel(null, null, 0, Int32.MaxValue),
                     Items = modelItems
                 });
             }

@@ -11,6 +11,7 @@ namespace HelloCoreMvcApp.Models
     public class MobileContext : DbContext
     {
         public DbSet<Phone> Phones { get; set; }
+        public DbSet<Ship> Ships { get; set; }
         public DbSet<Company> Companies { get; set; }
 
         public MobileContext(DbContextOptions<MobileContext> options)

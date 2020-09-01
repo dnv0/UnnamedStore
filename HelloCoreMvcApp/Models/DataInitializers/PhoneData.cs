@@ -11,14 +11,21 @@ namespace HelloCoreMvcApp.Models.DataInitializers
     {
         public static void Initialize(MobileContext context)
         {
-            if (!context.Companies.Any())
+        //    if (!context.Companies.Any())
+        //    {
+        //        context.Companies.AddRange(GenerateCompanies());
+        //    }
+        //    if (!context.Phones.Any())
+        //    {
+        //        context.Phones.AddRange(GeneratePhoneItems(context, 50)); 
+        //    }
+
+
+            if (!context.Ships.Any())
             {
-                context.Companies.AddRange(GenerateCompanies());
+                context.Ships.AddRange(GenerateShipItems(context, 50));
             }
-            if (!context.Phones.Any())
-            {
-                context.Phones.AddRange(GeneratePhoneItems(context, 50)); 
-            }
+
             context.SaveChanges();
         }
 
@@ -119,5 +126,106 @@ namespace HelloCoreMvcApp.Models.DataInitializers
 
             return companies;
         }
+
+
+        private static IEnumerable<Ship> GenerateShipItems(MobileContext context, int numOfItems = 0)
+        {
+            Random rnd = new Random();
+            List<Ship> ships = new List<Ship>();
+            IEnumerable<Company> companies = GenerateShipCompanies();
+
+            string[] model = { "HMS", "Bruno", "Bussard", "Brasse", "Bismarck", "Takao", "Amagi", "HMSZS", "Astor", "Aurora", "Bore", "Carnival Liberty" };
+            string[] num = { "Victory", "Dragon", "Tyne", "Raider", "Diamond", "Express", "Crush", "Star", "Vengeanse", "Albion", "Defender", "Dragonslayer", "Puncher", "Explorer" };
+
+            string[] description =
+            {
+                "Large watercraft that travels the world's oceans and other sufficiently deep waterways, carrying goods or passengers, or in support of specialized missions, such as defense, research, and fishing. ",
+                "In the Age of Sail was a sailing vessel defined by its sail plan of at least three square riged masts and a full bowsprit.",
+                "Can remain at sea for longer periods of time than boats",
+                "Large enough to carry their own boats and heavy cargoes, these vessels are designed for operation on inland or protected coastal waters.",
+                "High-speed craft – Multihulls including wave piercers, small-waterplane-area twin hull (SWATH), surface effect ships and hovercraft, hydrofoil, wing in ground effect craft (WIG).",
+                "Liquid cargo ship – Oil tankers, liquefied gas carriers, chemical carriers."
+            };
+
+            for (int i = 0; i < numOfItems; i++)
+            {
+                Ship newShip = new Ship
+                {
+                    Company = companies.ElementAt(rnd.Next(0, companies.ToList().Count)),
+                    Name = model[rnd.Next(0, model.Length)] + " " + num[rnd.Next(0, num.Length)],
+                    Price = rnd.Next(2000000, 1000000000),
+                    ShortDescription = description[rnd.Next(0, description.Length)]
+                };
+
+                ships.Add(newShip);
+            }
+
+            context.Companies.AddRange(companies);
+            return ships;
+        }
+
+        private static IEnumerable<Company> GenerateShipCompanies()
+        {
+            Company[] companieArr =
+            {
+                new Company()
+                {
+                    Name = "Adler Line", Description = "Hello"
+                },
+                new Company()
+                {
+                    Name = "Baltic SS Corp.", Description = "There"
+                },
+                new Company()
+                {
+                    Name = "Booth Line", Description = "Who"
+                },
+                new Company()
+                {
+                    Name = "Caledonian Steam Packet Company", Description = "Watches"
+                },
+                new Company()
+                {
+                    Name = "Canadian Steamship Company", Description = "This"
+                },
+                new Company()
+                {
+                    Name = "Collins Line", Description = "Code"
+                },
+                new Company()
+                {
+                    Name = "Corry & Co.", Description = "You"
+                },
+                new Company()
+                {
+                    Name = "Donaldson Line", Description = "Are 幸福猫 微笑"
+                },
+                new Company()
+                {
+                    Name = "Furness Line", Description = "Awesome"
+                },
+                new Company()
+                {
+                    Name = "Halvorsen, P.G.", Description = ";)"
+                },
+                new Company()
+                {
+                    Name = "Home Lines", Description = "And"
+                },
+                new Company()
+                {
+                    Name = "Lloyd Italiano", Description = "Handsome"
+                }
+            };
+            List<Company> companies = new List<Company>();
+
+            foreach (var item in companieArr)
+            {
+                companies.Add(item);
+            }
+
+            return companies;
+        }
+
     }
 }

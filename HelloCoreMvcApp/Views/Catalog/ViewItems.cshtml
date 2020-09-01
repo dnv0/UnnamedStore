@@ -70,7 +70,7 @@
                             <input type="number" class="form-control" name="minPrice" placeholder="$ min" value="@{ if (filter.SelectedMinPrice != 0) { @(filter.SelectedMinPrice) }  }">
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" name="maxPrice" placeholder="$ max" value="@{ if (filter.SelectedMaxPrice != 999999) { @(filter.SelectedMaxPrice) }  }">
+                            <input type="number" class="form-control" name="maxPrice" placeholder="$ max" value="@{ if (filter.SelectedMaxPrice != Int32.MaxValue) { @(filter.SelectedMaxPrice) }  }">
                         </div>
                     </div>
                     <br />
@@ -142,7 +142,7 @@
                             <input type="hidden" name="maxPrice" value="@filter.SelectedMaxPrice" />
                             <input type="hidden" name="sortOrder" value="@Model.SortViewModel.Current" />
 
-                            <button type="submit" class="btn btn-outline-dark">BACK</button>
+                            <button type="submit" class="btn btn-outline-primary mr-2">BACK</button>
                         }
 
                     </form>
@@ -163,7 +163,7 @@
                             <input type="hidden" name="maxPrice" value="@filter.SelectedMaxPrice" />
                             <input type="hidden" name="sortOrder" value="@Model.SortViewModel.Current" />
 
-                            <button type="submit" class="btn btn-outline-dark">NEXT</button>
+                            <button type="submit" class="btn btn-outline-primary">NEXT</button>
                         }
                     </form>
                 </div>
