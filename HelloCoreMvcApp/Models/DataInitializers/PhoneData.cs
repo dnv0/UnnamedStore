@@ -26,6 +26,11 @@ namespace HelloCoreMvcApp.Models.DataInitializers
                 context.Ships.AddRange(GenerateShipItems(context, 50));
             }
 
+            if (!context.ToiletPapers.Any())
+            {
+                context.ToiletPapers.AddRange(GeneratePaperItems(context, 50));
+            }
+
             context.SaveChanges();
         }
 
@@ -127,7 +132,6 @@ namespace HelloCoreMvcApp.Models.DataInitializers
             return companies;
         }
 
-
         private static IEnumerable<Ship> GenerateShipItems(MobileContext context, int numOfItems = 0)
         {
             Random rnd = new Random();
@@ -215,6 +219,105 @@ namespace HelloCoreMvcApp.Models.DataInitializers
                 new Company()
                 {
                     Name = "Lloyd Italiano", Description = "Handsome"
+                }
+            };
+            List<Company> companies = new List<Company>();
+
+            foreach (var item in companieArr)
+            {
+                companies.Add(item);
+            }
+
+            return companies;
+        }
+
+        private static IEnumerable<ToiletPaper> GeneratePaperItems(MobileContext context, int numOfItems = 0)
+        {
+            Random rnd = new Random();
+            List<ToiletPaper> papers = new List<ToiletPaper>();
+            IEnumerable<Company> companies = GeneratePaperCompanies();
+
+            string[] model = { "Skote", "Naberezhnye Chelny", "Vogue", "AngelSoft", "Luxe", "Charmin", "Quilted", "Panda", "WhiteCloud", "Eco", "Softy", "Fluffy" };
+            string[] num = { "Baby's Care", "OnFire", "Pepperonies", "Light", "Diamond", "Poisonless", "MyLife", "Clean", "Classic", "Premium", "Luxury", "S+", "AAA", "The Hottest" };
+
+            string[] description =
+            {
+                "Just like on fire",
+                "Literally a paper",
+                "Best toilet paper in our life",
+                "Woodless paper",
+                "Woodlessless paper",
+                "Super eco woodlesslessless paper production"
+            };
+
+            for (int i = 0; i < numOfItems; i++)
+            {
+                ToiletPaper paper = new ToiletPaper
+                {
+                    Company = companies.ElementAt(rnd.Next(0, companies.ToList().Count)),
+                    Name = model[rnd.Next(0, model.Length)] + " " + num[rnd.Next(0, num.Length)],
+                    Price = rnd.Next(1, 120),
+                    ShortDescription = description[rnd.Next(0, description.Length)]
+                };
+
+                papers.Add(paper);
+            }
+
+            context.Companies.AddRange(companies);
+            return papers;
+        }
+
+        private static IEnumerable<Company> GeneratePaperCompanies()
+        {
+            Company[] companieArr =
+            {
+                new Company()
+                {
+                    Name = "Procter & Gamble", Description = "Hello"
+                },
+                new Company()
+                {
+                    Name = "Kimberly-Clark", Description = "There"
+                },
+                new Company()
+                {
+                    Name = "Unicharm", Description = "Who"
+                },
+                new Company()
+                {
+                    Name = "Oasis Brands", Description = "Watches"
+                },
+                new Company()
+                {
+                    Name = "Private Label", Description = "This"
+                },
+                new Company()
+                {
+                    Name = "SCA", Description = "Code"
+                },
+                new Company()
+                {
+                    Name = "Hengan", Description = "You"
+                },
+                new Company()
+                {
+                    Name = "Velvet", Description = "Are 幸福猫 微笑"
+                },
+                new Company()
+                {
+                    Name = "Concept Supply, Inc.", Description = "Awesome"
+                },
+                new Company()
+                {
+                    Name = "Fastenal", Description = ";)"
+                },
+                new Company()
+                {
+                    Name = "AmeriPak", Description = "And"
+                },
+                new Company()
+                {
+                    Name = "Metsä", Description = "Handsome"
                 }
             };
             List<Company> companies = new List<Company>();

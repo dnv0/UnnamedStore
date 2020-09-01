@@ -12,6 +12,7 @@ namespace HelloCoreMvcApp.Models
     {
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Ship> Ships { get; set; }
+        public DbSet<ToiletPaper> ToiletPapers { get; set; }
         public DbSet<Company> Companies { get; set; }
 
         public MobileContext(DbContextOptions<MobileContext> options)
