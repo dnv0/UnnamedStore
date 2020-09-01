@@ -1,4 +1,5 @@
-﻿@model HelloCoreMvcApp.ViewModels.ViewItemsViewModel
+﻿@using HelloCoreMvcApp.ViewModels
+@model HelloCoreMvcApp.ViewModels.ViewItemsViewModel
 @{
     List<Company> companies = (List<Company>)ViewData["Companies"];
     var filter = Model.FilterViewModel;
@@ -6,102 +7,167 @@
 }
 <div class="border-bottom category-name"><a href="">// CATALOG // @(ViewData["Title"] + "s")</a></div>
 
-<h5 class="mb-md-4 font-weight-bold">@(ViewData["Title"] + "s") - @Model.Items.Count products</h5>
-
+<h5 class="mb-md-4 font-weight-bold">@(ViewData["Title"] + "s") - @ViewData["ItemsCount"] products</h5>
 
 <div class="container">
-    <div class="row">
-        <div class="col-3 bg-light p-4">
 
-            <form method="post">
-                <input id="page" type="hidden" name="page" value="@(Model.PageViewModel.PageNumber)" />
+    <!-- SEARCH / SORT FIELD -->
 
-                <label>Price:</label>
-                <div class="form-row">
+    <div class="row bg-light p-4 mb-3">
 
-                    <div class="col">
-                        <input type="number" class="form-control" name="minPrice" placeholder="$ min" value="@{ if (filter.SelectedMinPrice != 0) { @(filter.SelectedMinPrice) }  }">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" name="maxPrice" placeholder="$ max" value="@{ if (filter.SelectedMaxPrice != 999999) { @(filter.SelectedMaxPrice) }  }">
-                    </div>
+        <!-- NAME FILTER -->
+
+        <form class="form-row mr-4" method="post">
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="nameFilter" value="@filter.SelectedName">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">?</button>
                 </div>
-                <br />
-
-                <label>Companies:</label>
-
-                <div class="form-check">
-
-                    @foreach (var comp in companies)
-                    {
-                        <input class="form-check-input" type="checkbox" value="@comp.Id" name="companiesId" id="@(comp + "Check")"
-                               @{ if (filter.SelectedCompanies != null) { foreach (var scomp in filter.SelectedCompanies) { if (scomp == comp.Id) @("checked")  ; } } }>
-                        <label class="form-check-label" for="@(comp.Name + "Check")">
-                            @comp.Name
-                        </label>
-                        <br />
-                    }
-                </div>
-                <br />
-
-                <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                <button type="submit" class="btn btn-secondary btn-block" name="cancel" value="cancel">Clear Filter</button>
-            </form>
-
-        </div>
-        <div class="col-9">
-
-            <table class="table">
-                @foreach (var p in Model.Items)
-                {
-                    <tr><td>@p.Company.Name</td><td>@p.Name</td><td>@p.Price</td></tr>
-                }
-            </table>
-
-            <div class="form-inline">
-                <form method="post">
-                    @if (Model.PageViewModel.HasPreviousPage)
-                    {
-                        <input id="page" type="hidden" name="page" value="@(Model.PageViewModel.PageNumber - 1)" />
-                        @Html.Hidden("name", Model.FilterViewModel.SelectedName)
-
-                        if (filter.SelectedCompanies != null)
-                        {
-                            @for (int i = 0; i < filter.SelectedCompanies.Length; i++)
-                            {
-                                <input type="hidden" name="companiesId" value="@filter.SelectedCompanies[i]" />
-                            }
-                        }
-
-                        @Html.Hidden("minPrice", filter.SelectedMinPrice)
-                        @Html.Hidden("maxPrice", filter.SelectedMaxPrice)
-                        @Html.Hidden("sortorder", Model.SortViewModel.Current)
-
-                        <button type="submit" class="btn btn-outline-dark">BACK</button>
-                    }
-
-                </form>
-                <form method="post">
-                    @if (Model.PageViewModel.HasNextPage)
-                    {
-                        <input id="page" type="hidden" name="page" value="@(Model.PageViewModel.PageNumber + 1)" />
-
-                        if (filter.SelectedCompanies != null)
-                        {
-                            @for (int i = 0; i < filter.SelectedCompanies.Length; i++)
-                            {
-                                <input type="hidden" name="companiesId" value="@filter.SelectedCompanies[i]" />
-                            }
-                        }
-                        @Html.Hidden("minPrice", filter.SelectedMinPrice)
-                        @Html.Hidden("maxPrice", filter.SelectedMaxPrice)
-                        @Html.Hidden("sortorder", Model.SortViewModel.Current)
-
-                        <button type="submit" class="btn btn-outline-dark">NEXT</button>
-                    }
-                </form>
             </div>
 
+        </form>
+
+        <!-- SORT -->
+
+        <form class="form-row" method="post">
+
+            <div class="form-inline">
+
+                @if (filter.SelectedCompanies != null)
+                {
+                    @for (int i = 0; i < filter.SelectedCompanies.Length; i++)
+                    {
+                        <input type="hidden" name="companiesId" value="@filter.SelectedCompanies[i]" />
+                    }
+                }
+                <input id="page" type="hidden" name="page" value="@(Model.PageViewModel.PageNumber)" />
+                <input type="hidden" name="minPrice" value="@filter.SelectedMinPrice" />
+                <input type="hidden" name="maxPrice" value="@filter.SelectedMaxPrice" />
+                <input type="hidden" name="nameFilter" value="@filter.SelectedName" />
+
+                <button type="submit" name="sortOrder" value="@SortState.PriceAsc" class="btn btn-light bg-white mr-3 @{ if (Model.SortViewModel.PriceSort == SortState.PriceAsc) @("active") }"> Ascending price </button>
+
+                <button type="submit" name="sortOrder" value="@SortState.PriceDesc" class="btn btn-light bg-white @{ if (Model.SortViewModel.PriceSort == SortState.PriceDesc) @("active") }"> Descending price </button>
+            </div>        
+
+        </form>
+    </div>
+
+        <div class="row">
+
+            <!-- LEFT BLOCK -->
+
+            <div class="col-3 bg-light p-4">
+
+                <form method="post">
+                    <input id="page" type="hidden" name="page" value="@(Model.PageViewModel.PageNumber)" />
+
+                    <label>Price:</label>
+                    <div class="form-row">
+
+                        <div class="col">
+                            <input type="number" class="form-control" name="minPrice" placeholder="$ min" value="@{ if (filter.SelectedMinPrice != 0) { @(filter.SelectedMinPrice) }  }">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" name="maxPrice" placeholder="$ max" value="@{ if (filter.SelectedMaxPrice != 999999) { @(filter.SelectedMaxPrice) }  }">
+                        </div>
+                    </div>
+                    <br />
+
+                    <label>Companies:</label>
+
+                    <div class="form-check">
+
+                        @foreach (var comp in companies)
+                        {
+                            <input class="form-check-input" type="checkbox" value="@comp.Id" name="companiesId" id="@(comp + "Check")"
+                                   @{ if (filter.SelectedCompanies != null) { foreach (var scomp in filter.SelectedCompanies) { if (scomp == comp.Id) @("checked")  ; } } }>
+                            <label class="form-check-label" for="@(comp.Name + "Check")">
+                                @comp.Name
+                            </label>
+                            <br />
+                        }
+                    </div>
+                    <br />
+
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    <button type="submit" class="btn btn-secondary btn-block" name="cancel" value="cancel">Clear Filter</button>
+                </form>
+
+            </div>
+
+            <!-- RIGHT BLOCK -->
+
+            <div class="col-9 pl-3 pr-0">
+
+                <!-- ITEMS BLOCK -->
+
+                <div class="container-fluid">
+                    @foreach (var p in Model.Items)
+                    {
+                        <div class="row mb-3 p-3 bg-light">
+                            <img class="rounded col-2 img-fluid p-0" src="@( "https://source.unsplash.com/800x800/?" + p.Company.Name +"-" + ViewData["Title"]+ "-" + p.Id )" />
+                            <div class="col-8">
+                                <p class="text"> @p.Company.Name @p.Name </p>
+                                <p class="font-weight-light text-muted"> @p.ShortDescription </p>
+                            </div>
+
+                            <div class="col-2 font-weight-bold d-flex p-0 justify-content-end align-items-center">
+                                $@p.Price
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <!-- PAGE NAVIGATION -->
+
+                <div class="form-inline">
+                    <form method="post">
+                        @if (Model.PageViewModel.HasPreviousPage)
+                        {
+                            <input id="page" type="hidden" name="page" value="@(Model.PageViewModel.PageNumber - 1)" />
+                            @Html.Hidden("name", Model.FilterViewModel.SelectedName)
+
+                            if (filter.SelectedCompanies != null)
+                            {
+                                @for (int i = 0; i < filter.SelectedCompanies.Length; i++)
+                                {
+                                    <input type="hidden" name="companiesId" value="@filter.SelectedCompanies[i]" />
+                                }
+                            }
+
+                            <input type="hidden" name="minPrice" value="@filter.SelectedMinPrice" />
+                            <input type="hidden" name="maxPrice" value="@filter.SelectedMaxPrice" />
+                            <input type="hidden" name="sortOrder" value="@Model.SortViewModel.Current" />
+
+                            <button type="submit" class="btn btn-outline-dark">BACK</button>
+                        }
+
+                    </form>
+                    <form method="post">
+                        @if (Model.PageViewModel.HasNextPage)
+                        {
+                            <input id="page" type="hidden" name="page" value="@(Model.PageViewModel.PageNumber + 1)" />
+
+                            if (filter.SelectedCompanies != null)
+                            {
+                                @for (int i = 0; i < filter.SelectedCompanies.Length; i++)
+                                {
+                                    <input type="hidden" name="companiesId" value="@filter.SelectedCompanies[i]" />
+                                }
+                            }
+
+                            <input type="hidden" name="minPrice" value="@filter.SelectedMinPrice" />
+                            <input type="hidden" name="maxPrice" value="@filter.SelectedMaxPrice" />
+                            <input type="hidden" name="sortOrder" value="@Model.SortViewModel.Current" />
+
+                            <button type="submit" class="btn btn-outline-dark">NEXT</button>
+                        }
+                    </form>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
