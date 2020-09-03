@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HelloCoreMvcApp.Models;
 using HelloCoreMvcApp.Models.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloCoreMvcApp.Controllers
 {
@@ -21,23 +22,23 @@ namespace HelloCoreMvcApp.Controllers
             return View();
         }
 
-        [Route("products/{catalogName}/{productId:int}")]
+        [Route("Catalog/{catalogName}/{productId:int}")]
         public IActionResult ViewProduct(string catalogName, int productId)
         {
-            if(String.IsNullOrEmpty(catalogName) || productId == null)
-            {
-                return Content("Product not found");
-            }
+            Item product;
 
-            // Setting a list of current catalog
+            // Getting an item from db
             //
             if (GetEntityType(catalogName) != null)
             {
-                Item product = (Item)db.Set(GetEntityType(catalogName)).FirstOrDefault(p => (p as Item).Id == productId);
+                product = (Item)db.Set(GetEntityType(catalogName)).Include(c => (c as Item).Company).FirstOrDefault(p => ((Item)p).Id == productId);
             }
             else return StatusCode(404);
 
-            return Content("Item id: {product.Id} | Product Name: {product.Name}");
+            if (product == null) return StatusCode(404);
+
+            return View(product);
+
         }
 
         /// <summary>

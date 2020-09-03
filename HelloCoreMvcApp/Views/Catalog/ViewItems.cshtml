@@ -109,7 +109,9 @@
                         <div class="row mb-3 p-3 bg-light">
                             <img class="rounded col-2 img-fluid p-0" src="@( "https://source.unsplash.com/800x800/?" + p.Company.Name +"-" + ViewData["Title"]+ "-" + p.Id )" />
                             <div class="col-8">
-                                <p class="text"> @p.Company.Name @p.Name </p>
+                                <a href="@(ViewData["Title"] + "/" + p.Id)">
+                                    <p class="text"> @p.Company.Name @p.Name </p>
+                                </a>
                                 <p class="font-weight-light text-muted"> @p.ShortDescription </p>
                             </div>
 
@@ -118,7 +120,6 @@
                             </div>
                         </div>
                     }
-
                 </div>
 
                 <!-- PAGE NAVIGATION -->

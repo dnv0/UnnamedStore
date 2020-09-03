@@ -34,7 +34,7 @@
             int id = rnd.Next(0, Model.Count());
             var phone = Model.ElementAt(id);
             <div class="col-3">
-                <a href="@("/catalog/phones/" + phone.Id)">
+                <a href="@("/Catalog/Phone/" + phone.Id)">
                     <div class="card">
                         <div class="card-body">
                             <u class="card-title">@phone.Company.Name</u> <u class="card-title float-right">$@phone.Price</u> <br />
@@ -56,7 +56,7 @@
             int id = rnd.Next(0, ships.Count());
             var ship = ships.ElementAt(id);
             <div class="col-3">
-                <a href="@("/catalog/ships/" + ship.Id)">
+                <a href="@("/Catalog/Ship/" + ship.Id)">
                     <div class="card">
                         <div class="card-body">
                             <u class="card-title">@ship.Name</u> <br />
@@ -78,7 +78,7 @@
             int id = rnd.Next(0, toiletPapers.Count());
             var paper = toiletPapers.ElementAt(id);
             <div class="col-3">
-                <a href="@("/catalog/toiletpapers/" + paper.Id)">
+                <a href="@("/Catalog/ToiletPapers/" + paper.Id)">
                     <div class="card">
                         <div class="card-body">
                             <u class="card-title">@paper.Name</u> <br />

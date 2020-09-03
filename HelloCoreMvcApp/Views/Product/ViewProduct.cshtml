@@ -1,0 +1,25 @@
+﻿@model HelloCoreMvcApp.Models.Item
+
+<div class="border-bottom category-name"><a href="">// CATALOG // @ViewData["CategoryName"] // @(ViewData["Title"] + "s")</a></div>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-sm-3">
+            <img class="img-fluid" src="@("https://source.unsplash.com/800x800/?phone-" + Model.Company.Name )" />
+        </div>
+        <div class="col-sm-9" style="display:flex; flex-direction: column;">
+            <h4 class="font-weight-bold"> @Model.Company.Name @Model.Name &nbsp;&nbsp;&nbsp;&nbsp; $@Model.Price</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
+            <div style="margin-top: auto;">
+                <button class="btn btn-primary">BUY</button> <button class="btn btn-secondary">ADD TO SHOPPING CART</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+
+
+</div>
