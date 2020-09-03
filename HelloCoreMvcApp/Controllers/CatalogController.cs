@@ -77,6 +77,7 @@ namespace HelloCoreMvcApp.Controllers
         }
 
         [HttpPost]
+        [Route("Catalog/{name}")]
         public IActionResult ViewItems(int[] companiesId, string nameFilter, string cancel, int page, SortState sortOrder = SortState.PriceAsc, int minPrice = 0, int maxPrice = Int32.MaxValue)
         {
             int pageSize = 10;
