@@ -36,6 +36,7 @@ namespace HelloCoreMvcApp.Controllers
         }
 
         [HttpGet]
+        [Route("Catalog/{name}")]
         public IActionResult ViewItems(string name)
         {
             // Returns an view model by catalog name
