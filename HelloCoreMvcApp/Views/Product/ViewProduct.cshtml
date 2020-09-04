@@ -11,7 +11,17 @@
             <h4 class="font-weight-bold"> @Model.Company.Name @Model.Name &nbsp;&nbsp;&nbsp;&nbsp; $@Model.Price</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
             <div style="margin-top: auto;">
-                <button class="btn btn-primary">BUY</button> <button class="btn btn-secondary">ADD TO SHOPPING CART</button>
+                <button class="btn btn-primary">BUY</button>
+
+                <form method="post" asp-controller="ShoppingCart" asp-action="AddCartItem">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Name)
+                    @Html.HiddenFor(model => model.Price)
+                    @Html.HiddenFor(model => model.ShortDescription)
+                    @Html.HiddenFor(model => model.Company)
+                    <button class="btn btn-secondary">ADD TO SHOPPING CART</button>
+                </form>
+
             </div>
 
         </div>

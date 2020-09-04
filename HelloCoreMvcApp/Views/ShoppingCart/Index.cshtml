@@ -1,0 +1,15 @@
+﻿@model HelloCoreMvcApp.Models.ShoppingCart.ShoppingCart
+
+<table class="table">
+    <tr>
+        <td>Name</td>
+        <td>Quanity</td>
+    </tr>
+    <tr>
+        @foreach(var item in Model.CartList)
+        {
+            <td> @item.Product.Name </td>
+            <td> @item.Quantity </td>
+        }
+    </tr>
+</table>

@@ -9,7 +9,7 @@ namespace HelloCoreMvcApp.Models.DataInitializers
 {
     public class PhoneData
     {
-        public static void Initialize(MobileContext context)
+        public static void Initialize(ProductContext context)
         {
         //    if (!context.Companies.Any())
         //    {
@@ -34,7 +34,7 @@ namespace HelloCoreMvcApp.Models.DataInitializers
             context.SaveChanges();
         }
 
-        private static IEnumerable<Phone> GeneratePhoneItems(MobileContext context, int numOfItems = 0)
+        private static IEnumerable<Phone> GeneratePhoneItems(ProductContext context, int numOfItems = 0)
         {
             Random rnd = new Random();
             List<Phone> phones = new List<Phone>();
@@ -132,7 +132,7 @@ namespace HelloCoreMvcApp.Models.DataInitializers
             return companies;
         }
 
-        private static IEnumerable<Ship> GenerateShipItems(MobileContext context, int numOfItems = 0)
+        private static IEnumerable<Ship> GenerateShipItems(ProductContext context, int numOfItems = 0)
         {
             Random rnd = new Random();
             List<Ship> ships = new List<Ship>();
@@ -231,7 +231,7 @@ namespace HelloCoreMvcApp.Models.DataInitializers
             return companies;
         }
 
-        private static IEnumerable<ToiletPaper> GeneratePaperItems(MobileContext context, int numOfItems = 0)
+        private static IEnumerable<ToiletPaper> GeneratePaperItems(ProductContext context, int numOfItems = 0)
         {
             Random rnd = new Random();
             List<ToiletPaper> papers = new List<ToiletPaper>();

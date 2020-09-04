@@ -28,7 +28,7 @@ namespace HelloCoreMvcApp
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddDbContext<MobileContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ProductContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
