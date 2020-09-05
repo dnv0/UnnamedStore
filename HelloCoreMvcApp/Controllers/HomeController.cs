@@ -13,10 +13,10 @@ namespace HelloCoreMvcApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MobileContext db;
+        private readonly ProductContext db;
 
 
-        public HomeController(MobileContext context)
+        public HomeController(ProductContext context)
         {
             db = context;
         }

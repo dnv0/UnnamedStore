@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Http.Features;
 
 namespace HelloCoreMvcApp.Models
 {
-    public class MobileContext : DbContext
+    public class ProductContext : DbContext
     {
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Ship> Ships { get; set; }
         public DbSet<ToiletPaper> ToiletPapers { get; set; }
         public DbSet<Company> Companies { get; set; }
 
-        public MobileContext(DbContextOptions<MobileContext> options)
+        public ProductContext(DbContextOptions<ProductContext> options)
             :base(options)
         {
             //Database.EnsureDeleted();

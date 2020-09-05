@@ -21,9 +21,9 @@ namespace HelloCoreMvcApp.Controllers
 {
     public class CatalogController : Controller
     {
-        private readonly MobileContext db;
+        private readonly ProductContext db;
 
-        public CatalogController(MobileContext context)
+        public CatalogController(ProductContext context)
         {
             db = context;
         }
