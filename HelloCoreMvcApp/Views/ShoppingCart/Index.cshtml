@@ -3,13 +3,22 @@
 <table class="table">
     <tr>
         <td>Name</td>
-        <td>Quanity</td>
+        <td>Quantity</td>
     </tr>
-    <tr>
-        @foreach(var item in Model.CartList)
+
+    @if (Model != null && Model.CartList.Any())
+    {
+        @foreach (var item in Model.CartList)
         {
-            <td> @item.Product.Name </td>
-            <td> @item.Quantity </td>
+            <tr>
+                <td> @item.Product.Name </td>
+                <td> @item.Quantity </td>
+            </tr>
         }
-    </tr>
+    }
+    else
+    {
+        @("Your cart is empty")
+    }
+
 </table>

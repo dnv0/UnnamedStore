@@ -14,12 +14,7 @@
                 <button class="btn btn-primary">BUY</button>
 
                 <form method="post" asp-controller="ShoppingCart" asp-action="AddCartItem">
-                    @Html.HiddenFor(model => model.Id)
-                    @Html.HiddenFor(model => model.Name)
-                    @Html.HiddenFor(model => model.Price)
-                    @Html.HiddenFor(model => model.ShortDescription)
-                    @Html.HiddenFor(model => model.Company)
-                    <button class="btn btn-secondary">ADD TO SHOPPING CART</button>
+                    <button class="btn btn-secondary" name="itemId" value="@Model.Id">ADD TO SHOPPING CART</button>
                 </form>
 
             </div>
