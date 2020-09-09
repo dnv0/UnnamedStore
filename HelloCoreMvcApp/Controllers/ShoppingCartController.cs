@@ -9,6 +9,8 @@ using HelloCoreMvcApp.Models.Utils;
 using HelloCoreMvcApp.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloCoreMvcApp.Controllers
 {
@@ -41,7 +43,7 @@ namespace HelloCoreMvcApp.Controllers
 
             // Getting an item from db
             //
-            Item item = db.Set<Item>().FirstOrDefault(p => p.Id == itemId);
+            Item item = db.Set<Item>().Include(c => c.Company).FirstOrDefault(p => p.Id == itemId);
 
             // Getting a ShoppingCart of current session
             //
@@ -61,7 +63,7 @@ namespace HelloCoreMvcApp.Controllers
                 TypeNameHandling = TypeNameHandling.Auto
             }));
 
-            return PartialView();
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         private Type GetEntityType(string name)

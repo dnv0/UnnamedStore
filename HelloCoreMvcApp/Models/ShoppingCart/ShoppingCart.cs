@@ -16,7 +16,10 @@ namespace HelloCoreMvcApp.Models.ShoppingCart
 
         public void AddCartItem(ShoppingCartItem item)
         {
-            CartList.Add(item);
+            ShoppingCartItem product = CartList.FirstOrDefault(p => p.Product.Id == item.Product.Id);
+
+            if (product != null) product.Quantity++;
+            else CartList.Add(item);
         }
 
         public void RemoveCartItem(ShoppingCartItem item)
