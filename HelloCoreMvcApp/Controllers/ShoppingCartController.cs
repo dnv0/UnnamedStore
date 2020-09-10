@@ -61,6 +61,30 @@ namespace HelloCoreMvcApp.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
+        [HttpGet]
+        [Route("[controller]/[action]/{index:int}")]
+        public IActionResult RemoveCartItem(int index)
+        {
+            ShoppingCart shoppingCart;
+
+            // Getting a ShoppingCart of current session
+            //
+            shoppingCart = GetCartFromSession();
+            if (shoppingCart == null) shoppingCart = new ShoppingCart();
+
+            // Adding new item and storing into session
+            //
+            shoppingCart.RemoveCartItemFromList(index);
+            HttpContext.Session.SetString(key, JsonConvert.SerializeObject(shoppingCart, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            }));
+
+            // Redirect to the same page
+            //
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
         /// <summary>
         /// Method returns ShoppingCart object from session
         /// </summary>

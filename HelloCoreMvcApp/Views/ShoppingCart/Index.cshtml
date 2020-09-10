@@ -1,4 +1,7 @@
 ﻿@model HelloCoreMvcApp.Models.ShoppingCart.ShoppingCart
+@{ 
+    double totalPrice = 0;
+}
 
 <div class="border-bottom category-name"><a href="">// SHOPPING CART</a></div>
 @if (Model != null && Model.CartList.Any())
@@ -13,15 +16,20 @@
             </tr>
         </thead>
         <tbody>
+            @{ int i = 0;}
             @foreach (var item in Model.CartList)
             {
+                totalPrice += item.Product.Price * item.Quantity;
                 <tr>
                     <td> @item.Product.Company.Name </td>
                     <td> @item.Product.Name </td>
                     <td> $@item.Product.Price </td>
-                    <td> @item.Quantity </td>
+                    <td> @item.Quantity  <a class="badge badge-pill badge-danger float-right text-white font-weight-light" href="ShoppingCart/RemoveCartItem/@Model.CartList.IndexOf(item)">DELETE</a></td>
                 </tr>
             }
+            <tr>
+                <td colspan="4" class="border border-success font-weight-bold">Total: $@totalPrice</td>
+            </tr>
         </tbody>
     </table>
 }

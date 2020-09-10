@@ -22,9 +22,9 @@ namespace HelloCoreMvcApp.Models.ShoppingCart
             else CartList.Add(item);
         }
 
-        public void RemoveCartItem(ShoppingCartItem item)
+        public void RemoveCartItemFromList(int index)
         {
-            CartList.Remove(item);
+            CartList.RemoveAt(index);
         }
     }
 }

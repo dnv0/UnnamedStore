@@ -25,7 +25,6 @@ namespace HelloCoreMvcApp.Models.ShoppingCart
                 ViewData["CartCount"] = shoppingCart.CartList.Count;
             }
 
-
             return View("~/Views/ShoppingCart/_ShoppingCartCount.cshtml");
         }
     }
