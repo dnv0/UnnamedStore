@@ -11,12 +11,15 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace HelloCoreMvcApp.Controllers
 {
     public class ShoppingCartController : Controller
     {
         ProductContext db;
+
+        private string key = "shoppingcart"; // Key of shopping cart in session
 
         public ShoppingCartController(ProductContext context)
         {
@@ -25,21 +28,16 @@ namespace HelloCoreMvcApp.Controllers
 
         public IActionResult Index()
         {
-            string key = "shoppingcart";
+            ShoppingCart shoppingCart = GetCartFromSession();
 
-            ShoppingCart shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(HttpContext.Session.GetString(key), new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-
-            return View(shoppingCart);
+            if (shoppingCart != null) return View(shoppingCart);
+            else return View(new ShoppingCart());
         }
 
         [HttpPost]
         public IActionResult AddCartItem(int itemId)
         {
-            ShoppingCart shoppingCart = new ShoppingCart();
-            string key = "shoppingcart";
+            ShoppingCart shoppingCart;
 
             // Getting an item from db
             //
@@ -47,13 +45,8 @@ namespace HelloCoreMvcApp.Controllers
 
             // Getting a ShoppingCart of current session
             //
-            if (HttpContext.Session.Keys.Contains(key))
-            {
-                shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(HttpContext.Session.GetString(key), new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto
-                });
-            }
+            shoppingCart = GetCartFromSession();
+            if (shoppingCart == null) shoppingCart = new ShoppingCart();
 
             // Adding new item and storing into session
             //
@@ -63,7 +56,24 @@ namespace HelloCoreMvcApp.Controllers
                 TypeNameHandling = TypeNameHandling.Auto
             }));
 
+            // Redirect to the same page
+            //
             return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        /// <summary>
+        /// Method returns ShoppingCart object from session
+        /// </summary>
+        private ShoppingCart GetCartFromSession()
+        {
+            if (HttpContext.Session.Keys.Contains(key))
+            {
+                return JsonConvert.DeserializeObject<ShoppingCart>(HttpContext.Session.GetString(key), new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
+            }
+            else return null;
         }
 
         private Type GetEntityType(string name)
