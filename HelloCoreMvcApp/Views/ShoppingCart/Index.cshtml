@@ -1,15 +1,31 @@
 ﻿@model HelloCoreMvcApp.Models.ShoppingCart.ShoppingCart
 
-<table class="table">
-    <tr>
-        <td>Name</td>
-        <td>Quanity</td>
-    </tr>
-    <tr>
-        @foreach(var item in Model.CartList)
-        {
-            <td> @item.Product.Name </td>
-            <td> @item.Quantity </td>
-        }
-    </tr>
-</table>
+<div class="border-bottom category-name"><a href="">// SHOPPING CART</a></div>
+@if (Model != null && Model.CartList.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Company</td>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Quantity</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartList)
+            {
+                <tr>
+                    <td> @item.Product.Company.Name </td>
+                    <td> @item.Product.Name </td>
+                    <td> $@item.Product.Price </td>
+                    <td> @item.Quantity </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    @("Your cart is empty")
+}

@@ -34,7 +34,10 @@
                         </li>
                     </ul>
                 </div>
-                <button type="button" class="btn btn-outline-light text-dark" style="margin-right: 10px;">Log In</button>
+
+                @await Component.InvokeAsync("ShoppingCartCount")
+
+                <button type="button" class="btn btn-outline-light text-dark mr-2">Log In</button>
                 
                 <button type="button" class="btn btn-primary float-right">Sign Up</button>
 
