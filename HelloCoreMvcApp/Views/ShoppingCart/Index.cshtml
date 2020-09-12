@@ -1,5 +1,5 @@
 ﻿@model HelloCoreMvcApp.Models.ShoppingCart.ShoppingCart
-@{ 
+@{
     double totalPrice = 0;
 }
 
@@ -35,5 +35,7 @@
 }
 else
 {
-    @("Your cart is empty")
+    <div class="alert alert-warning" role="alert">
+        Your cart is empty.
+    </div>
 }

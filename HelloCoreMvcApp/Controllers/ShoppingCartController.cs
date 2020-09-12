@@ -34,7 +34,8 @@ namespace HelloCoreMvcApp.Controllers
             else return View(new ShoppingCart());
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Route("[controller]/[action]/{itemId:int}")]
         public IActionResult AddCartItem(int itemId)
         {
             ShoppingCart shoppingCart;
