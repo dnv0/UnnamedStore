@@ -28,20 +28,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Catalog" asp-action="Index">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
                     </ul>
                 </div>
 
                 @await Component.InvokeAsync("ShoppingCartCount")
-                
-
-                <button type="button" class="btn btn-outline-light text-dark mr-2">Log In</button>
-                
-                <button type="button" class="btn btn-primary float-right">Sign Up</button>
+               
 
             </div>
         </nav>

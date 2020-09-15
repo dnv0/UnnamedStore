@@ -37,7 +37,7 @@ namespace HelloCoreMvcApp.Controllers
             return View(db.Phones.ToList());
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contact()
         {
             return View();
         }
