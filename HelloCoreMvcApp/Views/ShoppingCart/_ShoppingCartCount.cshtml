@@ -1,3 +1,4 @@
 ﻿<a class="btn btn-light nav-link mr-2" href="/ShoppingCart">
-    Cart <span class="badge badge-primary my-1 font-weight-normal">@{ if(@ViewData["CartCount"] != null) @ViewData["CartCount"] else @("0") }</span>
+    Cart <span id="shoppingcartcount" class="badge badge-primary my-1 font-weight-normal" data-toggle="popover" data-placement="bottom" data-content="The product was added to your cart!">@{ if(@ViewData["CartCount"] != null) @ViewData["CartCount"] else @("0") }</span>
 </a>
+

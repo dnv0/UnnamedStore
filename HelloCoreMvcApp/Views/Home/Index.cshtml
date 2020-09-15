@@ -19,7 +19,7 @@
             <h4 class="font-weight-bold"> @product.Company.Name @product.Name &nbsp;&nbsp;&nbsp;&nbsp; $@product.Price</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
             <div style="margin-top: auto;">
-                <button class="btn btn-primary">BUY</button> <a class="btn btn-secondary" href="~/ShoppingCart/AddCartItem/@product.Id">ADD TO SHOPPING CART</a>
+                <button class="btn btn-primary">BUY</button> <button id="addcartitem" class="btn btn-secondary">ADD TO SHOPPING CART</button>
             </div>
 
         </div>
@@ -78,7 +78,7 @@
             int id = rnd.Next(0, toiletPapers.Count());
             var paper = toiletPapers.ElementAt(id);
             <div class="col-3">
-                <a href="@("/Catalog/ToiletPapers/" + paper.Id)">
+                <a href="@("/Catalog/ToiletPaper/" + paper.Id)">
                     <div class="card">
                         <div class="card-body">
                             <u class="card-title">@paper.Name</u> <br />
@@ -91,3 +91,22 @@
         }
     </div>
 </div>
+
+<!-- AJAX ADD CART ITEM METHOD -->
+<script type="text/javascript">
+    $(function () {
+        $("#addcartitem").click(function () {
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                url: "/ShoppingCart/AddCartItem/@product.Id",
+                success: function (response) {
+                    $("#shoppingcartcount").text(response.count);
+                    $("#shoppingcartcount").popover();
+                    $("#shoppingcartcount").popover('show');
+                    setTimeout(function () { $("#shoppingcartcount").popover('hide') }, 2000);
+                }
+            });
+        });
+    });
+</script>

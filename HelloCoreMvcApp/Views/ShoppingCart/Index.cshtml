@@ -4,38 +4,56 @@
 }
 
 <div class="border-bottom category-name"><a href="">// SHOPPING CART</a></div>
-@if (Model != null && Model.CartList.Any())
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td>Company</td>
-                <td>Name</td>
-                <td>Price</td>
-                <td>Quantity</td>
-            </tr>
-        </thead>
-        <tbody>
-            @{ int i = 0;}
-            @foreach (var item in Model.CartList)
-            {
-                totalPrice += item.Product.Price * item.Quantity;
+
+<div id="shoppingcarttable">
+    @if (Model != null && Model.CartList.Any())
+    {
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td> @item.Product.Company.Name </td>
-                    <td> @item.Product.Name </td>
-                    <td> $@item.Product.Price </td>
-                    <td> @item.Quantity  <a class="badge badge-pill badge-danger float-right text-white font-weight-light" href="ShoppingCart/RemoveCartItem/@Model.CartList.IndexOf(item)">DELETE</a></td>
+                    <td>Company</td>
+                    <td>Name</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
                 </tr>
-            }
-            <tr>
-                <td colspan="4" class="border border-success font-weight-bold">Total: $@totalPrice</td>
-            </tr>
-        </tbody>
-    </table>
-}
-else
-{
-    <div class="alert alert-warning" role="alert">
-        Your cart is empty.
-    </div>
-}
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartList)
+                {
+                    totalPrice += item.Product.Price * item.Quantity;
+                    <tr>
+                        <td> @item.Product.Company.Name </td>
+                        <td> @item.Product.Name </td>
+                        <td> $@item.Product.Price </td>
+                        <td> @item.Quantity  <a style="cursor: pointer;" class="badge badge-pill badge-danger float-right text-white font-weight-light deleteitembtn" data-deletelink="ShoppingCart/RemoveCartItem/@Model.CartList.IndexOf(item)">DELETE</a></td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="4" class="border border-success font-weight-bold">Total: $@totalPrice</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            Your cart is empty.
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(document).on("click", ".deleteitembtn", function () {
+            $.ajax({
+                type: "GET",
+                dataType: "JSON",
+                url: $(this).attr("data-deletelink"),
+                success: function (response) {
+                    $("#shoppingcartcount").text(response.count);
+                    $("#shoppingcarttable").load(location.href + " #shoppingcarttable > *");
+                }
+            });
+        });
+    });
+</script>
