@@ -17,9 +17,9 @@ namespace HelloCoreMvcApp.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        ProductContext db;
+        readonly ProductContext db;
 
-        private string key = "shoppingcart"; // Key of shopping cart in session
+        readonly private string key = "shoppingcart"; // Key of shopping cart in session
 
         public ShoppingCartController(ProductContext context)
         {
@@ -99,18 +99,6 @@ namespace HelloCoreMvcApp.Controllers
                 });
             }
             else return null;
-        }
-
-        private Type GetEntityType(string name)
-        {
-            var entityTypes = db.Model.GetEntityTypes().Select(t => t.ClrType).ToList();
-            foreach (var item in entityTypes)
-            {
-                if (item.Name.ToString() == name)
-                    return item;
-            }
-
-            return null;
         }
     }
 }
