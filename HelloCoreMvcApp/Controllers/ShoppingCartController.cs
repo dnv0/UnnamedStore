@@ -57,14 +57,14 @@ namespace HelloCoreMvcApp.Controllers
                 TypeNameHandling = TypeNameHandling.Auto
             }));
 
-            // Redirect to the same page
+            // Returning count of shoping cart list for counter in header
             //
             return Json(new { count = shoppingCart.CartList.Count });
         }
 
         [HttpGet]
         [Route("[controller]/[action]/{index:int}")]
-        public IActionResult RemoveCartItem(int index)
+        public JsonResult RemoveCartItem(int index)
         {
             ShoppingCart shoppingCart;
 
@@ -81,9 +81,9 @@ namespace HelloCoreMvcApp.Controllers
                 TypeNameHandling = TypeNameHandling.Auto
             }));
 
-            // Redirect to the same page
+            // Returning count of shoping cart list for counter in header
             //
-            return Redirect(Request.Headers["Referer"].ToString());
+            return Json(new { count = shoppingCart.CartList.Count });
         }
 
         /// <summary>
