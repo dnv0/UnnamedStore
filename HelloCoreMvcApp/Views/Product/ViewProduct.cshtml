@@ -25,14 +25,21 @@
 
 </div>
 
+<!-- AJAX ADD CART ITEM METHOD -->
 <script type="text/javascript">
     $(function () {
         $("#addcartitem").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/ShoppingCart/AddCartItem/@Model.Id"
+                dataType: "JSON",
+                url: "/ShoppingCart/AddCartItem/@Model.Id",
+                success: function (response) {
+                    $("#shoppingcartcount").text(response.count);
+                    $("#shoppingcartcount").popover();
+                    $("#shoppingcartcount").popover('show');
+                    setTimeout(function () { $("#shoppingcartcount").popover('hide') }, 2000);
+                }
             });
         });
     });
-
 </script>

@@ -36,7 +36,7 @@ namespace HelloCoreMvcApp.Controllers
 
         [HttpGet]
         [Route("[controller]/[action]/{itemId:int}")]
-        public IActionResult AddCartItem(int itemId)
+        public JsonResult AddCartItem(int itemId)
         {
             ShoppingCart shoppingCart;
 
@@ -59,7 +59,7 @@ namespace HelloCoreMvcApp.Controllers
 
             // Redirect to the same page
             //
-            return Redirect(Request.Headers["Referer"].ToString());
+            return Json(new { count = shoppingCart.CartList.Count });
         }
 
         [HttpGet]
