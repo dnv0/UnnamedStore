@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div class="border-bottom category-name"><a href="">// SMARTPHONES</a></div>
+<div class="border-bottom category-name"><a href="Catalog/Phone">// SMARTPHONES</a></div>
 <div class="container category">
     <div class="row card-deck">
         @for (int i = 0; i < 8; i++)
@@ -35,8 +35,8 @@
             var phone = Model.ElementAt(id);
             <div class="col-3">
                 <a href="@("/Catalog/Phone/" + phone.Id)">
-                    <div class="card">
-                        <div class="card-body">
+                    <div class="card border-0">
+                        <div class="card-body p-0 py-2">
                             <u class="card-title">@phone.Company.Name</u> <u class="card-title float-right">$@phone.Price</u> <br />
                             <u class="card-title">@phone.Name</u>
                         </div>
@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<div class="border-bottom category-name mt-4"><a href="">// SHIPS</a></div>
+<div class="border-bottom category-name mt-4"><a href="Catalog/Ship">// SHIPS</a></div>
 <div class="container category">
     <div class="row card-deck">
         @for (int i = 0; i < 8; i++)
@@ -57,8 +57,8 @@
             var ship = ships.ElementAt(id);
             <div class="col-3">
                 <a href="@("/Catalog/Ship/" + ship.Id)">
-                    <div class="card">
-                        <div class="card-body">
+                    <div class="card border-0">
+                        <div class="card-body p-0 py-2">
                             <u class="card-title">@ship.Name</u> <br />
                             <u class="card-title">$@ship.Price</u>
                         </div>
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<div class="border-bottom category-name mt-4"><a href="">// TOILET PAPERS</a></div>
+<div class="border-bottom category-name mt-4"><a href="Catalog/ToiletPaper">// TOILET PAPERS</a></div>
 <div class="container category">
     <div class="row card-deck">
         @for (int i = 0; i < 8; i++)
@@ -79,8 +79,8 @@
             var paper = toiletPapers.ElementAt(id);
             <div class="col-3">
                 <a href="@("/Catalog/ToiletPaper/" + paper.Id)">
-                    <div class="card">
-                        <div class="card-body">
+                    <div class="card border-0">
+                        <div class="card-body p-0 py-2">
                             <u class="card-title">@paper.Name</u> <br />
                             <u class="card-title">$@paper.Price</u>
                         </div>
