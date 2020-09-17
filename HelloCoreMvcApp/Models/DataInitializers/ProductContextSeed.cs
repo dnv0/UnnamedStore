@@ -7,7 +7,7 @@ using HelloCoreMvcApp.Models.Products;
 
 namespace HelloCoreMvcApp.Models.DataInitializers
 {
-    public class PhoneData
+    public class ProductContextSeed
     {
         public static void Initialize(ProductContext context)
         {

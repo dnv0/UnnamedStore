@@ -26,7 +26,7 @@ namespace HelloCoreMvcApp
                 try
                 {
                     var context = services.GetRequiredService<ProductContext>();
-                    PhoneData.Initialize(context);
+                    ProductContextSeed.Initialize(context);
                 }
                 catch(Exception ex)
                 {
