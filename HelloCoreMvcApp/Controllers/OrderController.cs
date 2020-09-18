@@ -15,6 +15,11 @@ namespace HelloCoreMvcApp.Controllers
             db = context;
         }
 
+        public IActionResult Index()
+        {
+            return View("Order");
+        }
+
         [Route("[controller]/[action]")]
         public IActionResult NewOrder(List<Item> itemList)
         {
