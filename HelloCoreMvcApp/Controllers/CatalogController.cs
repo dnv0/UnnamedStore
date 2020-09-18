@@ -193,8 +193,6 @@ namespace HelloCoreMvcApp.Controllers
 
             // Filter by companies array
             //
-            //companiesId = companiesId.Distinct().ToArray();
-
             if (companiesId.Length != 0)
             {
                 for (int i = 0; i < companiesId.Length; i++)
