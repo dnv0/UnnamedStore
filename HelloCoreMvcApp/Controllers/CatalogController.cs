@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Permissions;
-using System.Threading.Tasks;
 using HelloCoreMvcApp.Models;
-using HelloCoreMvcApp.Models.Products;
 using HelloCoreMvcApp.Models.Utils;
 using HelloCoreMvcApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace HelloCoreMvcApp.Controllers

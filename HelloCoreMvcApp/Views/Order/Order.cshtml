@@ -1,5 +1,6 @@
-﻿@{
-
+﻿@model List<HelloCoreMvcApp.Models.ShoppingCart.ShoppingCartItem> 
+@{
+    double TotalPrice = 0;
 }
 
 <div class="container">
@@ -36,31 +37,21 @@
         <li class="list-group-item d-flex justify-content-between align-items-center bg-light"> Your current order:</li>
 
         <!-- ITEM LIST -->
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Cras justo odio
-            <div class="float-right">
-                <span class="badge badge-success badge-pill">$150</span>
-                <span class="badge badge-secondary badge-pill">14</span>
-            </div>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Dapibus ac facilisis in
-            <div class="float-right">
-                <span class="badge badge-success badge-pill">$123140000020</span>
-                <span class="badge badge-secondary badge-pill">4</span>
-            </div>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Morbi leo risus
-            <div class="float-right">
-                <span class="badge badge-success badge-pill">$1</span>
-                <span class="badge badge-secondary badge-pill">1</span>
-            </div>
-        </li>
+        @foreach (var item in Model)
+        {
+            TotalPrice += item.Product.Price;
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @item.Product.Company.Name @item.Product.Name
+                <div class="float-right">
+                    <span class="badge badge-success badge-pill">$@item.Product.Price</span>
+                    <span class="badge badge-secondary badge-pill">@item.Quantity</span>
+                </div>
+            </li>
+        }
 
         <!-- TOTAL -->
         <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
-            <p class="font-weight-bold text-success mb-0"> Total: $168000 </p>
+            <p class="font-weight-bold text-success mb-0"> Total: $@TotalPrice </p>
         </li>
 
     </ul>
@@ -72,7 +63,6 @@
         $('#deliveryCheckBox').change(function () {
             if ($(this).is(':checked')) {
                 $('#addressInput').show();
-                console.log('ALERT 23123123');
                 return;
             }
             $('#addressInput').hide();
